@@ -35,7 +35,10 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-        $credentials = $request->all();
+        $credentials = [
+            'user_name'=> $request->user_name,
+            'password'=> $request->password
+        ];
         if (! $token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

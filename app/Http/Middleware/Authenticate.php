@@ -36,7 +36,11 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return redirect('login');
+            // return redirect('login');
+            return response()->json([
+                'Message'=> 'Bạn chưa đăng nhập',
+                'Status'=> 403
+            ]);
         }
         return $next($request);
     }

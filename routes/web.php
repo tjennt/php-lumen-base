@@ -17,7 +17,11 @@ $router->get('/', function () use ($router) {
 
 $router->post('/auth/login', 'ExampleController@postLogin');
 $router->post('/auth/logout', 'UserController@logout');
-$router->group(['middleware' => ['auth:api','admin']], function() use($router){
+
+$router->group([
+        "prefix" => "api",
+        'middleware' => ['auth:api','admin']
+    ],function() use($router){
 
     $router->get('/books', 'BooksController@getAll');
     $router->get('/cart/{id}', 'BooksController@getCart');
@@ -30,9 +34,7 @@ $router->group(['middleware' => ['auth:api','admin']], function() use($router){
     
 });
 
-$router->get('/login', 'UserController@formLogin');
-$router->post('/login', 'UserController@login');
-
+$router->get('no_api/books', 'BooksController@getAll');
 
 $router->get('/sentmail', 'UserController@sentmail');
 $router->get('/time', 'BooksController@time');
